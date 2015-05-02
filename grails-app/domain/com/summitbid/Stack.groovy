@@ -3,7 +3,7 @@ package com.summitbid
 class Stack {
 
 	String name = "stack";
-	String description = "code a stack with push, pop, max"
+	String description = "code a stack with push, pop, peek, max (returns max value on the stack) "
 	
 	def max = 0;
 	
@@ -16,74 +16,95 @@ class Stack {
 	 * Compare the new item with the latest max value and
 	 * set it if it's greater.
 	 * @param value
-	 * @return nothing
+	 * @return true if success, false if error
 	 */
 	def push(int value) {
 		println "push enter"
+		// push it on the stack
 		this.stack.add(value);
 		
-		println "  stack size is ${this.stack.size()}"
 		assert this.stack.size > 0
-		// if the stack is empty, then add the index into the list into the acendingMaxList
-		if (!this.stack) {
-			this.ascendingMaxList.add(this.stack.indexOf(value))
+		// if this is the first value on the stack, then add the index into the list into the acendingMaxList
+		if (this.stack.size() == 1) {
+			this.ascendingMaxList.add(value)
+			this.max = value
+			this.stack
 		}
 		// else compare this value with the current max.
 		// if it's greater than the current max, add this index to the head of the max list.
-		else if(value > this.ascendingMaxList[-1]) {
-			this.ascendingMaxList.add(this.stack.indexOf(value))
+		else if(value > this.max) {
+			this.ascendingMaxList.add(value)
+			this.max = value
 		}
+
 		println "push exit"
-		return this.peek()
+		if (this.stack.size() > 0)
+			return true
+		else 
+			return false
 	}
 	
 	/**
 	 *
-	 * pop the top of the stack and return at value
+	 * pop the top of the stack
 	 * if the stack is empty return null.
 	 *
-	 * @return last item in the list or null if the list is empty
+	 * @return nothing
 	 */
 	def pop() {
 		println "pop enter"
 		println "   1: stack size is ${this.stack.size()}"
 		if(this.stack.size() == 0)
-			return null
+			return 
 			
 		println "   2: stack size is ${this.stack.size()}"
 		// get the value to pop before we pop it off the stack
-		def result = this.stack[this.stack.size()]
-		this.stack.remove(this.stack.size()-1);
-		def newMax = findNewMaxPostPop()
+		def result = this.peek()
+		if(this.stack.size() > 0) {
+			this.stack.remove(this.stack.size() - 1);
+			def newMax = findNewMaxPostPop(result)
+		}
+		println this.stack
 		println "pop exit"
-		return result
+		return 
 	}
 	
 		 
 	/**
+	 * O(n)
 	 * after a pop, we may no longer have the max, if the max was the top of the stack
 	 * @return max
 	 */
-	def findNewMaxPostPop() {
+	def findNewMaxPostPop(def value) {
 		println "findNewMaxPost enter"
-		for(def idx = 0;idx < this.stack.size(); idx++) {
-			println "    value at idx ${idx}: ${this.stack[idx]}"
-			if (this.max < this.stack[idx]) {
-				this.max = this.stack[idx]
+		if( value > this.max) {
+			println "ERROR: value popped ${value} is greater then the current max ${this.max}"
+		}
+		// if the value popped is the max, then the new max is second to last in the ascending value list
+		// and remove the previous max. 
+		if(value == this.max) {
+			println "value passed in is same as max, so we need to remove an element from ascendingMaxList"
+			assert this.max == this.ascendingMaxList[this.ascendingMaxList.size() -1]
+			this.ascendingMaxList.remove(this.stack.size())
+			if(this.ascendingMaxList.size() > 0) {
+				this.max = this.ascendingMaxList[this.ascendingMaxList.size() -1]
 			}
 		}
+
+		println "  new max is: ${this.max}"
 		println "findNewMaxPost exit"
 		return this.max
 	}
 	
 	/**
-	 * @return return the value on the top of the stack
+	 * @return return the value on the top of the stack, or null if the stack is empty
 	 */
 	def peek() {
-		println "peak enter"
-		if (this.stack[0]) {
-			return this.stack[-1]
+		def result = null
+		if(this.stack.size() > 0) {
+			result =  this.stack[this.stack.size() -1]
 		}
+		return result 
 	}
 
 	
@@ -93,14 +114,14 @@ class Stack {
 	 * @return max value of the stack
 	 */
 	def max() {
-		println "max enter"
-		assert this.stack.max() == this.max
-		println "max exit"
+		//assert this.ascendingMaxList[this.ascendingMaxList.size() -1] == this.max
 		return this.max
 	}
 	
 	String toString() {
-		return "stack: ${this.stack}. stack size is ${this.stack.size()}"
+		println "  stack         : ${this.stack},  max: ${this.max}, stack size is ${this.stack.size()}"
+		println "  ascending list: ${this.ascendingMaxList} "
+		return " ** stack: ${this.stack},  max: ${this.max}, stack size is ${this.stack.size()}"
 	}
 
     static constraints = {

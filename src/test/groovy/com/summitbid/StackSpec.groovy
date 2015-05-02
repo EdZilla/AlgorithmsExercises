@@ -18,27 +18,29 @@ class StackSpec extends Specification {
     def cleanup() {
     }
 
-    void "add a value to the stack"() {
+    void "push a value onto the stack"() {
         expect:"expect..."
-		printf "got a stack"
-		stack
+		println "got an empty stack"
+		stack.peek() == null
 		
 		when: "when we add a value to the stack"
 		stack.push(1)
+		stack.peek()
 		
 		then:"stack is size one, and max is 1"
 		stack.stack.size() == 1
 		stack.max() == 1
-		println stack
+		println stack.peek()
     }
 	
-	void "add another larger value to the stack"() {
+	void "push another larger value onto the stack"() {
 		when: "add a larger value to the stack" 
 		stack.push(1)
-		println stack
+		stack.peek()
 		stack.max() == 1
-		println stack
+		stack.peek()
 		stack.push(2)
+		stack.peek()
 		
 		then: "new max is 2"
 		stack.max() == 2
@@ -51,23 +53,25 @@ class StackSpec extends Specification {
 		expect: "the stack to be some length greater then or equal to 2"
 		stack
 		stack.push(1)
-		println stack
+		stack.peek()
 		stack.max() == 1
 		stack.push(2)
-		println stack
+		stack.peek()
 		stack.max() == 2
 		stack.stack.size() == 2
 		
 		when: "we pop..."
 		def length = stack.stack.size()
-		println stack
+		stack.peek()
 		stack.pop()
-		println stack
+		stack.peek()
 		def oneSmaller = stack.stack.size()
 		
 		then: "we have a stack one smaller"
 		println "length was : ${length}, and is now ${oneSmaller}"
 		oneSmaller < length
+		stack.peek() == 1
+		stack.stack.size() == 1
 	}
 	
 	void "pop a value off the stack, and verify new max"() {
@@ -85,7 +89,9 @@ class StackSpec extends Specification {
 		when: "we pop..."
 		def length = stack.stack.size()
 		println stack
+		println "pop..."
 		stack.pop()
+		println "pop..."
 		println stack
 		def oneSmaller = stack.stack.size()
 		
@@ -114,5 +120,78 @@ class StackSpec extends Specification {
 		stack.push(99)
 		then:
 		stack.peek() == 99
+		
+		when: 
+		stack.pop()
+		
+		then: 
+		stack.peek() == 1
+		
+		when: 
+		stack.push(100)
+		
+		then: 
+		stack.peek() == 100
+
 	}
+	
+	void "try all kinds of stuff"() {
+		expect: " a stack"
+		stack
+		stack.peek() == null
+		
+		when: "push a bunch of values, 0 to 5"
+		[0,1,2,3,4,5].each {
+			stack.push(it)
+		}
+		
+		then: "size is 6, max is 5"
+		stack.peek() == 5
+		stack.max() == 5
+		
+		when: "pop the stack"
+		stack.pop()
+		
+		then: 
+		stack.peek() == 4
+		stack.max() == 4
+		
+		when: "pop again"
+		stack.pop()
+		
+		then:
+		stack.peek() == 3
+		stack.max() == 3
+		
+	}
+	
+	void "pop down the stack to zero"() {
+		expect: " a stack"
+		stack
+		stack.peek() == null
+		
+		when: 
+		[5,4,3,2,1,0].each {
+			stack.push(it)
+		}
+		
+		then: "size is 6, max is 5"
+		println stack
+		stack.peek() == 0
+		stack.max() == 5
+		stack.stack.size() == 6
+
+		when: 
+		stack.stack.size().times { idx->
+			stack.max() == 5
+			stack.peek() == idx - 1
+			stack.pop()
+		}
+		
+		then: 		
+		stack.stack.size() == 0
+	}
+	
+
+	
 }
