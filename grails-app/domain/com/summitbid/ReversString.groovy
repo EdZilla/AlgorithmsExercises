@@ -42,13 +42,13 @@ class ReversString {
 		for(; idx < str.size()/2 ;)
 		{
 			println "idx: ${idx}, str : ${str}, size: ${str.size()}"
-			println "start: ${start}, end: ${end}"
+			println "1: start: ${start}, end: ${end}"
 			str[idx] = end
-			str[str.size() - idx +1] = start
+			str[str.size() - idx - 1] = start
 			idx++
 			start = str[idx]
-			end =  str[str.size() - idx +1]
-			
+			end =  str[str.size() - idx - 1]
+			println "2: start: ${start}, end: ${end}"
 		}
 		return str
 	}

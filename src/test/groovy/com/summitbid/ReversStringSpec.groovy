@@ -15,7 +15,7 @@ class ReversStringSpec extends Specification {
     def cleanup() {
     }
 
-    void "reverse an even string"() {
+    void "reverse an odd numbered string"() {
         expect:"got a string"
 		ArrayList str = ['w','e','i','v','r','e','t','n','i']
 		ArrayList sln = ['i','n','t','e','r','v','i','e','w']
@@ -30,6 +30,22 @@ class ReversStringSpec extends Specification {
 		println "reverse str is: ${result}"
 		result == sln
     }
+	
+	void "reverse an even numbered string"() {
+		expect:"got a string"
+		ArrayList str = ['s','w','e','i','v','r','e','t','n','i']
+		ArrayList sln = ['i','n','t','e','r','v','i','e','w','s']
+		ArrayList result
+		def rstr = new ReversString()
+		rstr
+		
+		when: "pass it a string"
+		result = rstr.reverse(str)
+		
+		then: "result is reversed"
+		println "reverse str is: ${result}"
+		result == sln
+	}
 	
 	
 }
