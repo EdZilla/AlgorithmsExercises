@@ -28,29 +28,29 @@ for( idx < str.size()/2 )
  * @author eyoung2297k
  *
  */
-class ReversString {
+class GReverseString {
 
-	def reverse(ArrayList inputString) {
+	static def reverse(def inputString) {
 		def idx = 0
-		ArrayList str = inputString
+		//ArrayList str = inputString
 		println "inputstring: ${inputString}" 
-		def start = str[idx]
-		def end = str[str.size() - idx - 1] 
+		def start = inputString[idx]
+		def end = inputString[inputString.size() - idx - 1] 
 		// swap the letter at the ends and move inwards
 		// if it's even this will work
 		// if it's odd you will do the loop idx < (str.size /2) -1
-		for(; idx < str.size()/2 ;)
+		for(; idx < inputString.size()/2 ;)
 		{
-			println "idx: ${idx}, str : ${str}, size: ${str.size()}"
+			println "idx: ${idx}, str : ${inputString}, size: ${inputString.size()}"
 			println "1: start: ${start}, end: ${end}"
-			str[idx] = end
-			str[str.size() - idx - 1] = start
+			inputString[idx] = end[0]
+			inputString[inputString.size() - idx - 1] = start[0]
 			idx++
-			start = str[idx]
-			end =  str[str.size() - idx - 1]
+			start = inputString[idx]
+			end =  inputString[inputString.size() - idx - 1]
 			println "2: start: ${start}, end: ${end}"
 		}
-		return str
+		return inputString
 	}
 	
     static constraints = {

@@ -1,6 +1,6 @@
 package com.summitbid
 
-class Stack {
+class GStack implements Stack {
 
 	String name = "stack";
 	String description = "code a stack with push, pop, peek, max (returns max value on the stack) "
@@ -18,7 +18,7 @@ class Stack {
 	 * @param value
 	 * @return true if success, false if error
 	 */
-	def push(int value) {
+	Boolean push(Integer value) {
 		println "push enter"
 		// push it on the stack
 		this.stack.add(value);
@@ -51,7 +51,7 @@ class Stack {
 	 *
 	 * @return nothing
 	 */
-	def pop() {
+	void pop() {
 		println "pop enter"
 		println "   1: stack size is ${this.stack.size()}"
 		if(this.stack.size() == 0)
@@ -75,7 +75,7 @@ class Stack {
 	 * after a pop, we may no longer have the max, if the max was the top of the stack
 	 * @return max
 	 */
-	def findNewMaxPostPop(def value) {
+	def findNewMaxPostPop(Integer value) {
 		println "findNewMaxPost enter"
 		if( value > this.max) {
 			println "ERROR: value popped ${value} is greater then the current max ${this.max}"
@@ -99,7 +99,7 @@ class Stack {
 	/**
 	 * @return return the value on the top of the stack, or null if the stack is empty
 	 */
-	def peek() {
+	Integer peek() {
 		def result = null
 		if(this.stack.size() > 0) {
 			result =  this.stack[this.stack.size() -1]

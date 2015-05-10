@@ -6,13 +6,13 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Stack)
+//@TestFor(GStack)
 class StackSpec extends Specification {
 	
 	Stack stack
 	
     def setup() {
-	 stack = new Stack()
+	 stack = new GStack()
     }
 
     def cleanup() {
