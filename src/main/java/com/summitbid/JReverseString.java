@@ -30,69 +30,43 @@ for( idx < str.size()/2 )
  */
 class JReverseString {
 
+	/**
+	 * Take a string and reverse it.
+	 * Note: java.util.String is immutable, so we can't do it in place, 
+	 * and so  we need to create an intermediary data structure 
+	 * and reverse it.   
+	 * @param str string to be reversed
+	 * @return a new, reversed string
+	 */
 	static String reverse(String str) {
 		System.out.println("input string: " + str); 
-		ArrayList revAL = new ArrayList();
 		char[] ca = str.toCharArray();
-		for(int idx = 0; idx < str.length(); idx++) {
-			revAL.add(ca[idx]);
-		}
-		System.out.println("   converted str to ArrayList: " + revAL);
-		
-		String retString = revCAL(revAL).toString();
-		assert retString instanceof String;
-		return retString;
+
+		ca = revCA(ca);
+		StringBuilder foo = new StringBuilder();
+		foo.append(ca);
+		assert foo.toString() instanceof String;
+		assert str.length() == foo.toString().length();
+		return foo.toString();
 	}
 	
-	static ArrayList<Character> reverse(ArrayList<Character> str) {
-		str = revCAL(str);
-		return str;
-	}
-	
-	private static ArrayList<Character> revCAL(ArrayList<Character> str) {
+	/**
+	 * Take a character array and reverse it in place.
+	 * O(n/2)
+	 * @param ca
+	 * @return the reversed char array
+	 */
+	private static char[] revCA(char[] ca) {
 		int idx = 0;
-		System.out.println("  rev enter: input ArrayList: " + str); 
-		Character start =  str.get(idx);
-		Character end =  str.get(str.size() - idx - 1); 
-		// swap the letter at the ends and move inwards
-		// if it's even this will work
-		// if it's odd you will do the loop idx < (str.size /2) -1
-		for(; idx < str.size()/2 ;)
-		{
-			System.out.println( "  idx: " + idx + " str : " + str + " size: " + str.size());
-			System.out.println( "  1: start: " + start + ", end: " + end);
-			str.set(idx, end);
-			str.set(str.size() - idx - 1,start);
+		char start = ca[idx];
+		char end =   ca[ca.length - idx -1];
+		for(idx = 0;idx < ca.length/2; ) {
+			ca[idx] = end;
+			ca[ca.length - idx -1] = start;
 			idx++;
-			start = str.get(idx);
-			end   = str.get(str.size() - idx - 1);
-			System.out.println("  2: start: " + start + ", end: " + end);
+			start = ca[idx];
+			end =   ca[ca.length - idx -1];
 		}
-		System.out.println("  rev exit: return ArrayList :         " + str);
-		return str;
-	}
-	
-	
-	private static ArrayList<String> revSAL(ArrayList<String> str) {
-		int idx = 0;
-		System.out.println("  rev enter: input ArrayList: " + str); 
-		String start =  str.get(idx);
-		String end =  str.get(str.size() - idx - 1); 
-		// swap the letter at the ends and move inwards
-		// if it's even this will work
-		// if it's odd you will do the loop idx < (str.size /2) -1
-		for(; idx < str.size()/2 ;)
-		{
-			System.out.println( "  idx: " + idx + " str : " + str + " size: " + str.size());
-			System.out.println( "  1: start: " + start + ", end: " + end);
-			str.set(idx, end);
-			str.set(str.size() - idx - 1,start);
-			idx++;
-			start = str.get(idx);
-			end   = str.get(str.size() - idx - 1);
-			System.out.println("  2: start: " + start + ", end: " + end);
-		}
-		System.out.println("  rev exit: return ArrayList :         " + str);
-		return str;
+		return ca;
 	}
 }

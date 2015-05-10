@@ -30,27 +30,33 @@ for( idx < str.size()/2 )
  */
 class GReverseString {
 
-	static def reverse(def inputString) {
+	static String reverse(String str) {
 		def idx = 0
 		//ArrayList str = inputString
-		println "inputstring: ${inputString}" 
-		def start = inputString[idx]
-		def end = inputString[inputString.size() - idx - 1] 
-		// swap the letter at the ends and move inwards
-		// if it's even this will work
-		// if it's odd you will do the loop idx < (str.size /2) -1
-		for(; idx < inputString.size()/2 ;)
-		{
-			println "idx: ${idx}, str : ${inputString}, size: ${inputString.size()}"
-			println "1: start: ${start}, end: ${end}"
-			inputString[idx] = end[0]
-			inputString[inputString.size() - idx - 1] = start[0]
+		println "input str: ${str}"
+		println "inputString isa: " + str.getClass()
+		char[] ca = str.toCharArray();
+		ca = revca(ca);
+		return new StringBuilder().append(ca).toString();
+	}
+	
+	/** 
+	 * reverse char array in place
+	 * @param ca
+	 * @return reversed char array
+	 */
+	private static char[] revca(char[] ca) {
+		int idx = 0;
+		char start = ca[idx];
+		char end   = ca[ca.length - idx - 1]
+		for(; idx < ca.length/2;) {
+			ca[idx] = end
+			ca[ca.length - idx - 1] = start
 			idx++
-			start = inputString[idx]
-			end =  inputString[inputString.size() - idx - 1]
-			println "2: start: ${start}, end: ${end}"
+			start = ca[idx];
+			end   = ca[ca.length - idx - 1]
 		}
-		return inputString
+		return ca
 	}
 	
     static constraints = {
