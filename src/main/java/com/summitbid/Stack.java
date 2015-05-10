@@ -24,6 +24,12 @@ interface Stack {
 	 * @return return the value on the top of the stack, or null if the stack is empty
 	 */
 	public abstract Integer peek();
+	
+	/**
+	 * return the max value of the stack, or null if the stack is empty
+	 * @return
+	 */
+	public abstract Integer max();
 
 	//	
 	public abstract String toString();

@@ -113,7 +113,7 @@ class GStack implements Stack {
 	 * O(1)
 	 * @return max value of the stack
 	 */
-	def max() {
+	Integer max() {
 		//assert this.ascendingMaxList[this.ascendingMaxList.size() -1] == this.max
 		return this.max
 	}

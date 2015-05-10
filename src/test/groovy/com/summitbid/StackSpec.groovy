@@ -12,7 +12,7 @@ class StackSpec extends Specification {
 	Stack stack
 	
     def setup() {
-	 stack = new GStack()
+	 stack = new JStack()
     }
 
     def cleanup() {
@@ -25,22 +25,19 @@ class StackSpec extends Specification {
 		
 		when: "when we add a value to the stack"
 		stack.push(1)
-		stack.peek()
 		
 		then:"stack is size one, and max is 1"
 		stack.stack.size() == 1
 		stack.max() == 1
+		stack.peek() == 1
 		println stack.peek()
     }
 	
 	void "push another larger value onto the stack"() {
 		when: "add a larger value to the stack" 
 		stack.push(1)
-		stack.peek()
 		stack.max() == 1
-		stack.peek()
 		stack.push(2)
-		stack.peek()
 		
 		then: "new max is 2"
 		stack.max() == 2
@@ -53,18 +50,14 @@ class StackSpec extends Specification {
 		expect: "the stack to be some length greater then or equal to 2"
 		stack
 		stack.push(1)
-		stack.peek()
 		stack.max() == 1
 		stack.push(2)
-		stack.peek()
 		stack.max() == 2
 		stack.stack.size() == 2
 		
 		when: "we pop..."
 		def length = stack.stack.size()
-		stack.peek()
 		stack.pop()
-		stack.peek()
 		def oneSmaller = stack.stack.size()
 		
 		then: "we have a stack one smaller"
