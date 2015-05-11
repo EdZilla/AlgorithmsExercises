@@ -51,6 +51,26 @@ class JReverseString {
 	}
 	
 	/**
+	 * Test if the string is a palindrome 
+	 * @param str 
+	 * @return true if isPalindrome, else false
+	 */
+	static Boolean isPalindrome(String str) {
+		System.out.println("str is: " + str);
+		String revStr = reverse(str);
+		//String revStr = new StringBuilder().append(str).reverse().toString();
+		assert revStr instanceof String;
+		System.out.println("revStr is: " + revStr);
+		
+		if(str.compareTo(revStr) == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
 	 * Take a character array and reverse it in place.
 	 * O(n/2)
 	 * @param ca

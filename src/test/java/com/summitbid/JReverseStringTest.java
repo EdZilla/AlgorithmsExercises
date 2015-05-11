@@ -15,7 +15,7 @@ import org.junit.Ignore;
 public class JReverseStringTest {
 
 	@Test
-	//@Ignore
+	@Ignore
 	public void testReverseOddString() {
 		
 		String str = "interview";
@@ -31,6 +31,7 @@ public class JReverseStringTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testReverseEvenString() {
 		
 		String str = "interviews";
@@ -43,6 +44,28 @@ public class JReverseStringTest {
 		assert resStr instanceof String;
 		assert str.length() == resStr.length();
 		assert str == sln;
+	}
+	
+	@Test
+	public void testIsPalindrome() {
+		
+		String str = "ababa";
+		System.out.println("str is:  " + str);
+		Boolean isPal = JReverseString.isPalindrome(str);
+		assertTrue(isPal);
+		
+		str = "racecar";
+		System.out.println("str is:  " + str);
+		isPal = JReverseString.isPalindrome(str);
+		assertTrue(isPal);
+	}
+	
+	@Test
+	public void testIsNotPalindrome() {
+		String str = "interview";
+		System.out.println("str is:  " + str);
+		Boolean isPal = JReverseString.isPalindrome(str);
+		assertFalse(isPal);
 	}
 
 }
